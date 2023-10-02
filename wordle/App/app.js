@@ -1,24 +1,22 @@
-import { Component } from '../../core/Component';
+import { Component } from '../core/Component';
 
-export class Footer extends Component {
+export class App extends Component {
   constructor({
     tagName,
     className,
-    id,
     textContent,
     html,
     children,
-    events,
+    event,
     ...attrs
   }) {
     super({
       tagName,
       className,
-      id,
       textContent,
       html,
       children,
-      events,
+      event,
       ...attrs,
     });
   }

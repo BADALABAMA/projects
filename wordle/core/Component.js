@@ -1,7 +1,7 @@
 import { append, appendMany } from '../utils/append';
 import { defineEvent } from '../utils/defineEvents';
 
-class Component {
+export class Component {
   constructor({
     tagName,
     className,
@@ -18,7 +18,7 @@ class Component {
     this.className = className || ' ';
     this.id = id || ' ';
     if (textContent) this.textContent = textContent;
-    this.html = html || ' ';
+    this.html = html;
     this.children = children || ' ';
     if (events) this.events = events;
     this.attrs = attrs || ' ';

@@ -1,6 +1,6 @@
 import { Component } from '../../core/Component';
 
-export class Footer extends Component {
+export class Button extends Component {
   constructor({
     tagName,
     className,
