@@ -9,7 +9,7 @@ export class Input extends Component {
     html,
     children,
     events,
-    ...attrs
+    attrs,
   }) {
     super({
       tagName,
@@ -19,7 +19,7 @@ export class Input extends Component {
       html,
       children,
       events,
-      ...attrs,
+      attrs,
     });
   }
 }

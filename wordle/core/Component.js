@@ -10,7 +10,7 @@ export class Component {
     html,
     children,
     events,
-    ...attrs
+    attrs,
   }) {
     if (!tagName) return;
 
@@ -40,7 +40,6 @@ export class Component {
         element[attr] = value;
       }
     }
-    console.log('[this.events]', this.events);
 
     if (!this.events) return element;
 
