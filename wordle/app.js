@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     className: 'app',
   }).toHTML();
 
-  prepend(app, App);
+  append(app, App);
 
   append(App, main);
   append(main, h1);
