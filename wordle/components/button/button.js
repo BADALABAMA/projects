@@ -1,25 +1,16 @@
-import { Component } from '../../core/Component';
+export class Button {
+  constructor({ textContent, events, className }) {
+    this.textContent = textContent;
+    this.className = className;
+    this.events = events;
+  }
 
-export class Button extends Component {
-  constructor({
-    tagName,
-    className,
-    id,
-    textContent,
-    html,
-    children,
-    events,
-    attrs,
-  }) {
-    super({
-      tagName,
-      className,
-      id,
-      textContent,
-      html,
-      children,
-      events,
-      attrs,
+  toHTML() {
+    const button = document.createElement('button');
+    button.textContent = this.textContent;
+    this.events.forEach((event) => {
+      button.addEventListener(event.type, event.listener);
     });
+    return button;
   }
 }

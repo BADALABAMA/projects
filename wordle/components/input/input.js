@@ -1,25 +1,15 @@
-import { Component } from '../../core/Component';
+export class Input {
+  constructor({ type, placeholder, id }) {
+    this.type = type;
+    this.placeholder = placeholder;
+    this.id = id;
+  }
 
-export class Input extends Component {
-  constructor({
-    tagName,
-    className,
-    id,
-    textContent,
-    html,
-    children,
-    events,
-    attrs,
-  }) {
-    super({
-      tagName,
-      className,
-      id,
-      textContent,
-      html,
-      children,
-      events,
-      attrs,
-    });
+  toHTML() {
+    const input = document.createElement('input');
+    input.type = this.type;
+    input.placeholder = this.placeholder;
+    input.id = this.id;
+    return input;
   }
 }

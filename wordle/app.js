@@ -1,5 +1,5 @@
 import { App as Application } from './App/app';
-import { Footer, Main, Button, Header, Card, Input } from './components/index';
+import { Footer, Main, Header, Card, Input, Button } from './components/index';
 import { getAccount, createUser, clearInputs } from './utils/functions/func';
 import { append, appendMany, prepend } from './utils/append';
 import {
@@ -11,67 +11,61 @@ import {
   authorised,
   account,
 } from './core/constants/const';
+import '../wordle/styles.scss';
+
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector('body');
-  const email = document.querySelector('.input__email');
-  const password = document.querySelector('.input__password');
-  let account; // Объявите account в глобальной области видимости
-  let authorised = false; // Инициализируй
 
-  const buttons = [
-    {
-      textContent: 'Login',
-      events: [
-        {
-          click: (e) => {
-            if (email && password !== null) {
-              account = getAccount(accounts, {
-                email: email.value,
-                password: password.value,
-              });
-              if (!account) return console.log('There is no valid data');
+  let account;
+  let authorised = false;
 
-              clearInputs(email, password);
+  const emailInput = new Input({
+    type: 'text',
+    placeholder: 'Email',
+    id: 'email-input',
+  }).toHTML();
 
-              console.log(`hello ${account.email}`);
-            }
-          },
+  const passwordInput = new Input({
+    type: 'password',
+    placeholder: 'Password',
+    id: 'password-input',
+  }).toHTML();
+
+  const loginButton = new Button({
+    textContent: 'Login',
+    className: 'login-btn',
+    events: [
+      {
+        type: 'click',
+        listener: (e) => {
+          account = getAccount(accounts, {
+            email: emailInput.value,
+            password: passwordInput.value,
+          });
+          if (!account) return console.log('There is no valid data');
+
+          clearInputs(emailInput, passwordInput);
+
+          console.log(`hello ${account.email}`);
         },
-      ],
-    },
-    {
-      textContent: 'Register',
-      events: [
-        {
-          click: (e) => {
-            {
-              createUser(email, password, hasAccount, accounts);
-              clearInputs(...inputs);
-              console.log(accounts);
-            }
-          },
+      },
+    ],
+  }).toHTML();
+
+  const registerButton = new Button({
+    textContent: 'Register',
+    className: 'register-btn',
+    events: [
+      {
+        type: 'click',
+        listener: (e) => {
+          createUser(emailInput, passwordInput, hasAccount, accounts);
+          clearInputs(emailInput, passwordInput);
+          console.log(accounts);
         },
-      ],
-    },
-    {
-      textContent: 'Start Game',
-      events: [
-        {
-          click: (e) => {
-            console.log('Start was clicked');
-          },
-        },
-      ],
-    },
-  ].map((btn) => {
-    return new Button({
-      tagName: 'button',
-      className: 'btn',
-      textContent: btn.textContent,
-      events: btn.events,
-      attrs: btn.attrs,
-    }).toHTML();
-  });
+      },
+    ],
+  }).toHTML();
 
   const main = new Main({
     tagName: 'main',
@@ -84,28 +78,20 @@ document.addEventListener('DOMContentLoaded', () => {
     className: 'card',
     id: 'card',
   }).toHTML();
-  const header = new Header({
-    tagName: 'header',
-    className: 'header',
-    id: 'header',
-    children: [...buttons],
-  }).toHTML();
-  const sendBtn = new Button({
-    tagName: 'button',
-    className: 'sendBtn',
-    textContent: 'Send',
-  }).toHTML();
-
+  const h1 = new Main({ tagName: 'h1', textContent: 'WORDLE' }).toHTML();
   const App = new Application({
     tagName: 'div',
     className: 'app',
   }).toHTML();
 
   prepend(app, App);
-  append(App, header);
+
   append(App, main);
+  append(main, h1);
   append(main, card);
-  appendMany(card, inputs);
-  append(app, main);
-  append(card, sendBtn);
+
+  append(card, emailInput);
+  append(card, passwordInput);
+  append(card, registerButton);
+  append(card, loginButton);
 });

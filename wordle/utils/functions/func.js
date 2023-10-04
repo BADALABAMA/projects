@@ -1,9 +1,7 @@
 export function getAccount(accounts, { email, password }) {
-  const userEmail = email.value;
-  const userPassword = password.value;
   return accounts.find(
     (account) =>
-      account.email === userEmail && account.password === userPassword
+      account.email === email.value && account.password === password.value
   );
 }
 
@@ -18,9 +16,6 @@ export function toLowerCase(str) {
 }
 
 export function createUser(userEmail, userPassword, hasAccount, accounts) {
-  userEmail = document.querySelector('.input__email');
-  userPassword = document.querySelector('.input__password');
-
   if (userEmail.value.length && userPassword.value.length >= 8) {
     const email = userEmail.value;
     const password = userPassword.value;
