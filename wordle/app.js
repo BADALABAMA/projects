@@ -9,15 +9,11 @@ import {
   accounts,
   hasAccount,
   authorised,
-  account,
 } from './core/constants/const';
 import '../wordle/styles.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector('body');
-
-  let account;
-  let authorised = false;
 
   const emailInput = new Input({
     type: 'text',
@@ -37,15 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
     events: [
       {
         type: 'click',
-        listener: (e) => {
-          account = getAccount(accounts, {
+        listener: () => {
+          let account = getAccount(accounts, {
             email: emailInput.value,
             password: passwordInput.value,
           });
           if (!account) return console.log('There is no valid data');
-
           clearInputs(emailInput, passwordInput);
-
+          console.log(account);
           console.log(`hello ${account.email}`);
         },
       },
