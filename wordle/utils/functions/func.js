@@ -25,6 +25,7 @@ export function createUser(userEmail, userPassword, hasAccount, accounts) {
     console.log('wrong value');
   }
 }
+
 function validateEmail(email) {
   if (
     email.value.includes('@') &&
@@ -47,4 +48,7 @@ function validatePassword(password) {
   } else {
     return false;
   }
+}
+export function updateTriesLeft(tag, triesLeft) {
+  tag.textContent = `Tries left: ${triesLeft}`;
 }

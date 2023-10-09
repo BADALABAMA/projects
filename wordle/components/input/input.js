@@ -1,15 +1,17 @@
 export class Input {
-  constructor({ type, placeholder, id }) {
+  constructor({ type, className, id, maxlength }) {
     this.type = type;
-    this.placeholder = placeholder;
+    this.className = className;
     this.id = id;
+    this.maxlength = maxlength;
   }
 
   toHTML() {
     const input = document.createElement('input');
     input.type = this.type;
-    input.placeholder = this.placeholder;
+    input.className = this.className;
     input.id = this.id;
+    input.maxLength = this.maxlength;
     return input;
   }
 }

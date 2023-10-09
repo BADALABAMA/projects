@@ -1,15 +1,8 @@
 import { App as Application } from './App/app';
-import { Footer, Main, Header, Card, Input, Button } from './components/index';
+import { Main, Card, Input, Button } from './components/index';
 import { getAccount, createUser, clearInputs } from './utils/functions/func';
-import { append, appendMany, prepend } from './utils/append';
-import {
-  existingInputs,
-  existingSendBtn,
-  inputs,
-  accounts,
-  hasAccount,
-  authorised,
-} from './core/constants/const';
+import { append, prepend } from './utils/append';
+import { accounts, hasAccount, authorised } from './core/constants/const';
 import '../wordle/styles.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,7 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
             email: emailInput.value,
             password: passwordInput.value,
           });
-          if (!account) return console.log('There is no valid data');
+          if (!account) {
+            return alert('There is no valid data');
+          }
           clearInputs(emailInput, passwordInput);
           console.log(account);
           console.log(`hello ${account.email}`);
@@ -74,19 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
     id: 'card',
   }).toHTML();
   const h1 = new Main({ tagName: 'h1', textContent: 'WORDLE' }).toHTML();
+  const btn = new Button({
+    textContent: 'wordle',
+    className: 'register-btn',
+    events: [
+      {
+        type: 'click',
+        listener: (e) => {
+          window.location.href = '/public/pages/index.html';
+        },
+      },
+    ],
+  }).toHTML();
   const App = new Application({
     tagName: 'div',
     className: 'app',
   }).toHTML();
 
-  append(app, App);
-
+  prepend(app, App);
   append(App, main);
   append(main, h1);
   append(main, card);
-
   append(card, emailInput);
   append(card, passwordInput);
   append(card, registerButton);
   append(card, loginButton);
+  append(card, btn);
 });

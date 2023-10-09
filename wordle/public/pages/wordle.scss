@@ -1,0 +1,74 @@
+$font-family: Arial, sans-serif;
+$prim: #53e3a6;
+body {
+  font-family: $font-family;
+  text-align: center;
+}
+#background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+}
+
+#wordle-container {
+  position: relative;
+  top: 10rem;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(240, 248, 255, 0.489);
+  border-radius: 10px;
+  width: 500px;
+  height: 100%;
+}
+
+#word-display {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.word-input {
+  display: inline;
+  padding: 5px;
+  font-size: 16px;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+
+  &.yellow {
+    background-color: yellow;
+  }
+
+  &.green {
+    background-color: green;
+    color: white;
+  }
+}
+
+.check-btn {
+  padding: 5px 10px;
+  font-size: 16px;
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 0;
+  color: $prim;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 18px;
+  transition-duration: 0.25s;
+  margin: 0.5rem;
+  color: black;
+  &:hover {
+    background-color: rgb(245, 247, 249);
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 25px;
+  }
+}

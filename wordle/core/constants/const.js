@@ -2,19 +2,21 @@ import { Input } from '../../components';
 
 export const inputs = [
   {
-    className: 'input__email',
-    placeholder: 'Email',
+    type: 'text',
+    className: 'word-input',
+    id: 'word-input-1',
+    maxlength: '1',
   },
-  {
-    className: 'input__password',
-    placeholder: 'password',
-  },
+  { type: 'text', className: 'word-input', id: 'word-input-2', maxlength: '1' },
+  { type: 'text', className: 'word-input', id: 'word-input-3', maxlength: '1' },
+  { type: 'text', className: 'word-input', id: 'word-input-4', maxlength: '1' },
+  { type: 'text', className: 'word-input', id: 'word-input-5', maxlength: '1' },
 ].map((input) => {
   return new Input({
-    tagName: 'input',
+    type: input.type,
     className: input.className,
-    placeholder: input.placeholder,
-    events: input.events,
+    id: input.id,
+    maxlength: input.maxlength,
   }).toHTML();
 });
 export const existingInputs = document.querySelector('.input');

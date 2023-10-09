@@ -8,6 +8,7 @@ export class Button {
   toHTML() {
     const button = document.createElement('button');
     button.textContent = this.textContent;
+    button.className = this.className;
     this.events.forEach((event) => {
       button.addEventListener(event.type, event.listener);
     });
