@@ -31,17 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
           let isInputValid = true;
           wordInputs = Array.from(wordInputs);
           wordInputs.forEach((input) => {
-            if (input.value.length !== 1) {
-              return (isInputValid = false);
+            if (input.value.length === 1) {
+              return (isInputValid = true);
             } else {
-              isInputValid = true;
+              isInputValid = false;
             }
           });
-
-          if (currentGuess === targetWord) {
-            alert('You right, congrats!');
-            return;
-          }
 
           let correctPositions = 0;
           let correctLetters = 0;
@@ -59,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
 
-          if (correctPositions === 5) {
+          if (correctPositions === 5 && currentGuess === targetWord) {
             alert('You right, congrats!');
+            triesLeft = 7;
           }
           if (isInputValid === true) {
             triesLeft--;
