@@ -9,13 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const targetWord = 'apple';
   let currentGuess = '';
   let triesLeft = 6;
-  let wordInputs = document.getElementsByClassName('word-input');
-  wordInputs = Array.from(wordInputs);
 
   const wordleContainer = new Div(
     'wordle-container',
     'wordle-container'
   ).toHTML();
+  let wordInputs = document.getElementsByTagName('input');
   const wordDisplay = new Div('word-display', 'word-display').toHTML();
   const displayTriesLeft = document.createElement('h1');
   displayTriesLeft.id = 'tries-left';
@@ -30,18 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
         type: 'click',
         listener: (e) => {
           let isInputValid = true;
+          wordInputs = Array.from(wordInputs);
           wordInputs.forEach((input) => {
             if (input.value.length !== 1) {
-              isInputValid = false;
-              alert('Enter a letter in every inputs');
-              return;
+              return (isInputValid = false);
+            } else {
+              isInputValid = true;
             }
           });
-
-          if (!isInputValid) {
-            alert('Enter a letter in every inputs ');
-            return;
-          }
 
           if (currentGuess === targetWord) {
             alert('You right, congrats!');
@@ -66,7 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
           if (correctPositions === 5) {
             alert('You right, congrats!');
-          } else {
+          }
+          if (isInputValid === true) {
             triesLeft--;
             updateTriesLeft(displayTriesLeft, triesLeft);
 
@@ -75,21 +71,22 @@ document.addEventListener('DOMContentLoaded', function () {
               triesLeft = 7;
             }
           }
+
+          wordInputs.forEach((input) => {
+            input.addEventListener('input', () => {
+              input.value = input.value.toLowerCase();
+              currentGuess = '';
+              wordInputs.forEach((input) => {
+                currentGuess += input.value;
+                input.classList.remove('green', 'yellow');
+              });
+            });
+          });
         },
       },
     ],
   }).toHTML();
 
-  wordInputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      input.value = input.value.toLowerCase();
-      currentGuess = '';
-      wordInputs.forEach((input) => {
-        currentGuess += input.value;
-        input.classList.remove('green', 'yellow');
-      });
-    });
-  });
   const app = document.querySelector('body');
   const App = new Application({
     tagName: 'div',
@@ -101,5 +98,4 @@ document.addEventListener('DOMContentLoaded', function () {
   append(wordleContainer, checkBtn);
   append(wordleContainer, displayTriesLeft);
   appendMany(wordDisplay, inputs);
-  console.log(wordInputs);
 });
