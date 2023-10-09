@@ -22,7 +22,9 @@ export function createUser(userEmail, userPassword, hasAccount, accounts) {
     const newUser = { email, password, hasAccount };
     accounts.push(newUser);
   } else {
-    console.log('wrong value');
+    console.log(
+      'Email shoud contain "@"".". Password shoud contain numbers and srting'
+    );
   }
 }
 

@@ -7,17 +7,21 @@ import '../wordle/styles.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector('body');
-
+  let account = {};
   const emailInput = new Input({
     type: 'text',
     placeholder: 'Email',
     id: 'email-input',
+    className: 'email-input',
+    maxlength: '20',
   }).toHTML();
 
   const passwordInput = new Input({
     type: 'password',
     placeholder: 'Password',
     id: 'password-input',
+    className: 'password-input',
+    maxlength: '20',
   }).toHTML();
 
   const loginButton = new Button({
@@ -27,10 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         type: 'click',
         listener: () => {
-          let account = getAccount(accounts, {
+          account = getAccount(accounts, {
             email: emailInput.value,
             password: passwordInput.value,
           });
+          account.authorised = true;
           if (!account) {
             return alert('There is no valid data');
           }
@@ -69,14 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
     id: 'card',
   }).toHTML();
   const h1 = new Main({ tagName: 'h1', textContent: 'WORDLE' }).toHTML();
-  const btn = new Button({
-    textContent: 'wordle',
-    className: 'register-btn',
+  const startBtn = new Button({
+    textContent: 'Start',
+    className: 'start-btn',
     events: [
       {
         type: 'click',
         listener: (e) => {
-          window.location.href = '/public/pages/index.html';
+          if (account.authorised === true) {
+            window.location.href = '/public/pages/index.html';
+          } else {
+            alert('You shoud login to start');
+          }
         },
       },
     ],
@@ -94,5 +103,5 @@ document.addEventListener('DOMContentLoaded', () => {
   append(card, passwordInput);
   append(card, registerButton);
   append(card, loginButton);
-  append(card, btn);
+  append(card, startBtn);
 });

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ).toHTML();
   let wordInputs = document.getElementsByTagName('input');
   const wordDisplay = new Div('word-display', 'word-display').toHTML();
+
   const displayTriesLeft = document.createElement('h1');
   displayTriesLeft.id = 'tries-left';
 
@@ -30,10 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
         listener: (e) => {
           let isInputValid = true;
           wordInputs = Array.from(wordInputs);
+
           wordInputs.forEach((input) => {
-            if (input.value.length === 1) {
-              return (isInputValid = true);
-            } else {
+            if (input.value.length !== 1) {
               isInputValid = false;
             }
           });
@@ -54,24 +54,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
 
-          if (correctPositions === 5 && currentGuess === targetWord) {
-            alert('You right, congrats!');
-            triesLeft = 7;
-          }
           if (isInputValid === true) {
             triesLeft--;
             updateTriesLeft(displayTriesLeft, triesLeft);
-
             if (triesLeft === 0) {
               alert(`Game is over. The word is: "${targetWord}".`);
               triesLeft = 7;
             }
           }
+          if (correctPositions === 5 || currentGuess === targetWord) {
+            alert('You right, congrats!');
+            triesLeft = 7;
+          }
 
           wordInputs.forEach((input) => {
-            input.addEventListener('input', () => {
+            input.addEventListener('change', () => {
               input.value = input.value.toLowerCase();
               currentGuess = '';
+              wordInputs = Array.from(wordInputs);
               wordInputs.forEach((input) => {
                 currentGuess += input.value;
                 input.classList.remove('green', 'yellow');
