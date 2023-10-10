@@ -59,9 +59,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (letter === targetLetter) {
               wordInputs[i].classList.add('green');
+              anime({
+                targets: wordInputs[i],
+                rotateY: '+=720deg',
+                duration: 1000,
+                easing: 'easeInOutQuad',
+                loop: false,
+              });
               correctPositions++;
             } else if (targetWord.includes(letter)) {
               wordInputs[i].classList.add('yellow');
+              anime({
+                targets: wordInputs[i],
+                rotateY: '+=360deg',
+                duration: 1000,
+                easing: 'easeInOutQuad',
+                loop: false,
+              });
               correctLetters++;
             }
           }
@@ -76,8 +90,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
           if (correctPositions === 5 || currentGuess === targetWord) {
-            alert('You are right, congrats!');
-            gameOver = true;
+            anime({
+              targets: '.word-input',
+              rotateY: '+=720deg',
+              duration: 1500,
+              easing: 'easeInOutQuad',
+              loop: false,
+            });
+
+            setTimeout(() => {
+              alert('You are right, congrats!');
+              gameOver = true;
+            }, 1000);
           }
           for (let i = 0; i < wordInputs.length; i++) {
             const input = wordInputs[i];
