@@ -54,3 +54,7 @@ function validatePassword(password) {
 export function updateTriesLeft(tag, triesLeft) {
   tag.textContent = `Tries left: ${triesLeft}`;
 }
+export function getRandomWord(wordsArray) {
+  const randomIndex = Math.floor(Math.random() * wordsArray.length);
+  return wordsArray[randomIndex];
+}

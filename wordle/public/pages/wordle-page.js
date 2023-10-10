@@ -1,42 +1,54 @@
 import { App as Application } from '../../App/app';
 import { Div, Button } from '../../components/index';
 import { inputs } from '../../core/constants/const';
-import { updateTriesLeft } from '../../utils/functions/func';
+import { updateTriesLeft, getRandomWord } from '../../utils/functions/func';
+import { fiveCharWords } from '../../utils/word-list';
 import { append, appendMany, prepend } from '../../utils/append';
 import './wordle.scss';
 
 document.addEventListener('DOMContentLoaded', function () {
-  const targetWord = 'apple';
-  let currentGuess = '';
   let triesLeft = 6;
-
+  const targetWord = getRandomWord(fiveCharWords);
+  let currentGuess = '';
+  let gameOver = false;
   const wordleContainer = new Div(
     'wordle-container',
     'wordle-container'
   ).toHTML();
   let wordInputs = document.getElementsByTagName('input');
-  const wordDisplay = new Div('word-display', 'word-display').toHTML();
 
+  const wordDisplay = new Div('word-display', 'word-display').toHTML();
   const displayTriesLeft = document.createElement('h1');
   displayTriesLeft.id = 'tries-left';
 
   updateTriesLeft(displayTriesLeft, triesLeft);
 
   const checkBtn = new Button({
-    textContent: 'Check',
+    textContent: 'start',
     className: 'check-btn',
     events: [
       {
         type: 'click',
         listener: (e) => {
-          let isInputValid = true;
-          wordInputs = Array.from(wordInputs);
+          e.preventDefault();
 
+          console.log('[RANDOM_WORD]', targetWord);
+          checkBtn.textContent = 'check';
+          let isInputValid = true;
+
+          wordInputs = Array.from(wordInputs);
+          wordInputs.forEach((input) => {
+            input.removeAttribute('disabled');
+          });
           wordInputs.forEach((input) => {
             if (input.value.length !== 1) {
               isInputValid = false;
             }
           });
+
+          if (gameOver) {
+            return;
+          }
 
           let correctPositions = 0;
           let correctLetters = 0;
@@ -57,27 +69,46 @@ document.addEventListener('DOMContentLoaded', function () {
           if (isInputValid === true) {
             triesLeft--;
             updateTriesLeft(displayTriesLeft, triesLeft);
+
             if (triesLeft === 0) {
               alert(`Game is over. The word is: "${targetWord}".`);
-              triesLeft = 7;
+              gameOver = true;
             }
           }
           if (correctPositions === 5 || currentGuess === targetWord) {
-            alert('You right, congrats!');
-            triesLeft = 7;
+            alert('You are right, congrats!');
+            gameOver = true;
           }
+          for (let i = 0; i < wordInputs.length; i++) {
+            const input = wordInputs[i];
 
-          wordInputs.forEach((input) => {
-            input.addEventListener('change', () => {
+            input.addEventListener('input', () => {
               input.value = input.value.toLowerCase();
               currentGuess = '';
               wordInputs = Array.from(wordInputs);
               wordInputs.forEach((input) => {
                 currentGuess += input.value;
-                input.classList.remove('green', 'yellow');
+                input.classList.remove('green', 'yellow', 'red');
               });
+
+              if (input.value.length > 0 && i < wordInputs.length - 1) {
+                wordInputs[i + 1].focus();
+              }
             });
-          });
+          }
+        },
+      },
+    ],
+  }).toHTML();
+
+  const restartBtn = new Button({
+    textContent: 'restart',
+    className: 'restart-btn',
+    events: [
+      {
+        type: 'click',
+        listener: () => {
+          location.reload();
         },
       },
     ],
@@ -92,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
   append(App, wordleContainer);
   append(wordleContainer, wordDisplay);
   append(wordleContainer, checkBtn);
+  append(wordleContainer, restartBtn);
   append(wordleContainer, displayTriesLeft);
   appendMany(wordDisplay, inputs);
 });

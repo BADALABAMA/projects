@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     id: 'email-input',
     className: 'email-input',
     maxlength: '20',
-  }).toHTML();
+  }).toHTML(); // Password shoud conatain "@",  " . "and longer than 4
+  emailInput.removeAttribute('disabled');
 
   const passwordInput = new Input({
     type: 'password',
@@ -22,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     id: 'password-input',
     className: 'password-input',
     maxlength: '20',
-  }).toHTML();
+  }).toHTML(); // Password shoud conatain numbers and strings and longer than 5
+  passwordInput.removeAttribute('disabled');
 
   const loginButton = new Button({
     textContent: 'Login',
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     events: [
       {
         type: 'click',
+        // User authorization
         listener: () => {
           account = getAccount(accounts, {
             email: emailInput.value,
@@ -80,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     events: [
       {
         type: 'click',
+        // check is user login
         listener: (e) => {
           if (account.authorised === true) {
             window.location.href = '/public/pages/index.html';

@@ -1,4 +1,4 @@
-const five_char_words = [
+export const fiveCharWords = [
   'about',
   'other',
   'which',
@@ -1348,5 +1348,3 @@ const five_char_words = [
   'stake',
   'arbor',
 ];
-
-export { five_char_words };
