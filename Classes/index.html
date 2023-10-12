@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Create Human</h1>
+      <form id="humanForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required /><br /><br />
+
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" required /><br /><br />
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option></select
+        ><br /><br />
+
+        <button type="button" id="createHumanButton">Create Human</button>
+      </form>
+
+      <div id="humanDisplay"></div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
