@@ -1,4 +1,28 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+#app {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#humanForm {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#humanDisplay {
+  display: flex;
+  justify-content: center;
+  margin: 5rem;
+  gap: 10px;
+  text-align: center;
+  line-height: 2rem;
+}
 img {
   width: 400px;
   height: 300px;
+}
+.live__btn {
+  margin-left: 10px;
 }
