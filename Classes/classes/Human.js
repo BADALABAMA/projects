@@ -6,14 +6,14 @@ import {
 
 export class Human {
   constructor(
-    firsName,
+    firstName,
     surname,
     age = AGE_BY_DEFAULT,
     salary = SALARY_BY_DEFAULT,
     gender,
     balance = BALANCE_BY_DEFAULT
   ) {
-    (this.firsName = firsName),
+    (this.firstName = firstName),
       (this.surname = surname),
       (this.age = age),
       (this.gender = gender),

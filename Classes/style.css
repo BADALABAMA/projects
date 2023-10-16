@@ -19,9 +19,13 @@
   text-align: center;
   line-height: 2rem;
 }
-img {
+.user__img,
+.rounded__img {
   width: 400px;
   height: 300px;
+}
+.rounded__img {
+  border-radius: 10rem;
 }
 .live__btn {
   margin-left: 10px;
